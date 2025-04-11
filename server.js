@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 4001
 
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001'], // Allow frontend origins
+    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001', 'https://spbgi-admin.vercel.app'], // Allow frontend origins
     credentials: true, // Allow cookies or authorization headers
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
@@ -47,7 +47,7 @@ app.use('/api', orderRouter);
 
 
 
-app.listen(PORT,'0.0.0.0', () =>{
+app.listen(PORT,'0.0.0.0',   () =>{
     console.log(`server running on port ${PORT}`)
 })
 
