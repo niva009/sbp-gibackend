@@ -14,17 +14,21 @@ const PORT = process.env.PORT || 4001
 
 
 
-app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001', 'https://spbgi-admin.vercel.app'], // Allow frontend origins
-    credentials: true, // Allow cookies or authorization headers
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-  }));
-  
-  // Ensure OPTIONS requests are handled
-  app.options('*', cors());
-  
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://spbgi-admin.vercel.app',
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
+// Apply CORS middleware for all routes and methods (including OPTIONS)
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Apply same config for preflight
 
 
 
