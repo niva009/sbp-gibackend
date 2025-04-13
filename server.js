@@ -5,7 +5,8 @@ const categoryRouter = require('./Router/categoryRouter');
 const EventRouter = require('./Router/eventRouter');
 const CartRouter = require ('./Router/cartRouter');
 const BillingRouter = require('./Router/billingRouter');
-const orderRouter = require('./Router/orderRouter')
+const orderRouter = require('./Router/orderRouter');
+const EventTimeRouter = require('./Router/evnttimeRouter');
 const cors = require("cors");
 const dbConnection = require('./config/config');
 const dotenv = require("dotenv");
@@ -20,6 +21,7 @@ const corsOptions = {
     'http://localhost:3000',
     'http://localhost:3001',
     'https://spbgi-admin.vercel.app',
+    'https://hpbgicancersurgerysummit2025.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -45,6 +47,7 @@ app.use('/api', EventRouter);
 app.use('/api', CartRouter);
 app.use('/api', BillingRouter);
 app.use('/api', orderRouter);
+app.use('/api', EventTimeRouter);
 
 
 
