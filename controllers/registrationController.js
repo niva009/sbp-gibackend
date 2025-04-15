@@ -23,6 +23,8 @@ const createUser = async (req, res) => {
           return res.status(400).json({ message: "Email already exists" });
         }
 
+        console.log
+("oldPhone", oldPhone);
         if (oldPhone){
             return res.status(400).json({ message: "phonenumber already exist"})
           }
@@ -45,7 +47,7 @@ const createUser = async (req, res) => {
       
           await newLogin.save();
       
-          res.status(201).json({ message: "User registered successfully" });
+          res.status(201).json({ message: "User registered successfully",data:user });
     }catch(error){
         return res.status(500).json({
             message:"internal serrver error",

@@ -20,28 +20,29 @@ const BillingAddressSchema = new Schema(
         },
         city: {
             type: String,
-            required: true,
+            required: false,
         },
         state: {
             type: String,
             required: false,
         },
-        country: {
-            type: String,
-            required: true,
-        },
         postal_code: {
             type: String,
-            required: true,
+            required: false,
         },
         phone: {
             type: String,
-            required: true,
-        },
-        image:{
-            type: String,
             required: false,
-        }
+        },
+        position:{
+            type:String,
+            required:false
+        },
+        instution:{
+            type:String,
+            required:false,
+        },
+
     })
 
     module.exports = mongoose.model("BillingAddress", BillingAddressSchema);

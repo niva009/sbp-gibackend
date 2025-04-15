@@ -3,29 +3,78 @@ const BillingAddress = require("../models/billingAddressSchema");
 // Create a new billing address
 exports.createBillingAddress = async (req, res) => {
     try {
-        
-        const { userId } = req.user;
+      const { name, email, phone, address, city, state, position, institution, user_id } = req.body;
 
-        console.info("User ID from token:", userId); // Log the userId for debugging
-        const existingAddress = await BillingAddress.findOne({ user_id: userId });
-        if (existingAddress) {  
+
+      console.log("req.body", req.body); // Log the request body for debugging
+  
+      console.log("Billing address data:", req.body); // Logs all fields including user_id
+  
+      const newAddress = new BillingAddress(req.body);
+      const savedAddress = await newAddress.save();
+  
+      res.status(201).json({ success: true, message: "Billing address created", data: savedAddress });
+  
+      console.log("Billing address created:", savedAddress);
+    } catch (error) {
+      console.error("Error creating billing address:", error);
+      res.status(500).json({ success: false, message: "Error creating billing address", error: error.message });
+    }
+  };
+  
+
+
+
+exports.createManualBillingAddress = async (req, res) => {
+    try {
+        const { user_id, name, address, state } = req.body;
+
+        console.log("Billing address data:", req.body); // Log the request body for debugging
+
+        if (!user_id) {
+            return res.status(400).json({ success: false, message: "user_id is required in the request body" });
+        }
+
+        console.info("User ID from body:", user_id);
+
+        const existingAddress = await BillingAddress.findOne({ user_id });
+        console.log("Existing address:", existingAddress); // Log the existing address for debugging
+        if (existingAddress) {
             return res.status(400).json({ success: false, message: "Billing address already exists" });
         }
-        // Create a new billing address 
-        req.body.user_id = userId; // Add userId to the request body
-        const { name, email, phone, address, city, state, zip } = req.body;  
-        const newAddress = new BillingAddress(req.body);
+
+        const newAddress = new BillingAddress({
+            user_id,
+            name,
+            address,
+            state,
+        });
+
         const savedAddress = await newAddress.save();
-        res.status(201).json({ success: true, message: "Billing address created", data: savedAddress });
+
+        res.status(201).json({
+            success: true,
+            message: "Billing address created",
+            billing: savedAddress
+        });
+
+        console.log("Billing address created:", savedAddress);
+
     } catch (error) {
-        res.status(500).json({ success: false, message: "Error creating billing address", error: error.message });
+        console.error("Error creating billing address:", error);
+        res.status(500).json({
+            success: false,
+            message: "Error creating billing address",
+            error: error.message
+        });
     }
 };
+
 
 // Update a billing address
 exports.updateBillingAddress = async (req, res) => {
     try {
-        const { id } = req.params;
+        const userId = req.body.user_id;
         const updatedAddress = await BillingAddress.findByIdAndUpdate(id, req.body, { new: true });
 
         if (!updatedAddress) {

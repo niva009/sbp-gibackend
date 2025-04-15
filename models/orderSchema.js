@@ -35,15 +35,7 @@ const OrderSchema = new Schema(
                     type: Number,
                     required: true,
                     min: 1,
-                },
-                organser_name: {
-                    type: String,
-                    required: true,
-                },  
-                subtotal: {
-                    type: Number,
-                    required: true,
-                },
+                }, 
             }
         ],
         total_price: {
@@ -73,13 +65,17 @@ const OrderSchema = new Schema(
             type: String,
             required: false,
         },
+        regisstration_id: {
+            type: String,
+            required: false,
+        },
         qr_code: {
             type: String, 
             required: false,
         },
        billingId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "billingAddress",
+       ref: "BillingAddress",
         required: true,
        }
     },
