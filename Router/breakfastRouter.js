@@ -5,6 +5,6 @@ const {  addBreakfastRegistration,
 
 
     BreakFastRouter.post('/breakfast/add-registration',addBreakfastRegistration);
-    BreakFastRouter.post('/breakfast/view-registration',getAllBreakfastRegistrations);
+    BreakFastRouter.get('/breakfast/view-registration',getAllBreakfastRegistrations);
 
     module.exports =BreakFastRouter;
