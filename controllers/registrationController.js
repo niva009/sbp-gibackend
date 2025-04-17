@@ -5,57 +5,71 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 
-
+const crypto = require("crypto"); 
 const createUser = async (req, res) => {
+  try {
+    if (!req.body) {
+      return res.status(400).json({ error: "Request body is missing" });
+    }
 
-    try{
-        if (!req.body) {
-            return res.status(400).json({ error: "Request body is missing" });
-          }
-        const {name, email, phone, password} = req.body;
-        console.log("registration data", req.body);
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const { name, email, phone } = req.body;
 
-        const oldEmail = await userRegistration.findOne({email})
-        const oldPhone = await userRegistration.findOne({phone});
+    console.log("registration data", req.body);
 
-        if (oldEmail) {
-          return res.status(400).json({ message: "Email already exists" });
-        }
 
-        console.log
-("oldPhone", oldPhone);
-        if (oldPhone){
-            return res.status(400).json({ message: "phonenumber already exist"})
-          }
-    
+    const rawPassword = crypto.randomBytes(5).toString("hex"); 
+    const hashedPassword = await bcrypt.hash(rawPassword, 10);
 
-        const user = new userRegistration({
-            name,
-            email,
-            phone,
-            password: hashedPassword
-        })
-        user.save()
+    const oldEmail = await userRegistration.findOne({ email });
+    const oldPhone = await userRegistration.findOne({ phone });
 
-        const newLogin = new loginSchema({
-            email,
-            password: hashedPassword,
-            user_id: user.id,
-            phone,
-          });
-      
-          await newLogin.save();
-      
-          res.status(201).json({ message: "User registered successfully",data:user });
-    }catch(error){
-        return res.status(500).json({
-            message:"internal serrver error",
-            error:error.message,
-        })
-    }   
-   
-}
+
+    console.log("oldphone,emaail", oldEmail, oldPhone);
+
+    if (oldEmail) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    if (oldPhone) {
+      return res.status(400).json({ message: "Phone number already exists" });
+    }
+
+    const user = new userRegistration({
+      name,
+      email,
+      phone,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    const newLogin = new loginSchema({
+      email,
+      password: hashedPassword,
+      user_id: user.id,
+      phone,
+    });
+
+    await newLogin.save();
+
+    res.status(201).json({
+      message: "User registered successfully",
+      data: {
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        password: rawPassword, 
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
 
 const registerusers = async (req, res) => {
 
