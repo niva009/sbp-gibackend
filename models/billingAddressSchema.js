@@ -18,6 +18,10 @@ const BillingAddressSchema = new Schema(
             ref: "userRegistration",
             required: true,
         },
+        age:{
+            type: String,
+            required:false,
+        },
         city: {
             type: String,
             required: false,
@@ -30,10 +34,6 @@ const BillingAddressSchema = new Schema(
             type: String,
             required: false,
         },
-        phone: {
-            type: String,
-            required: false,
-        },
         position:{
             type:String,
             required:false
@@ -41,6 +41,18 @@ const BillingAddressSchema = new Schema(
         instution:{
             type:String,
             required:false,
+        },
+        sex:{
+            type:String,
+            required: false,
+        },
+        member:{
+            type: String,
+            required:false,
+        },
+        invitation:{
+            type:String,
+            required:false
         },
 
     })

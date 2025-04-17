@@ -3,7 +3,7 @@ const BillingAddress = require("../models/billingAddressSchema");
 // Create a new billing address
 exports.createBillingAddress = async (req, res) => {
     try {
-      const { name, email, phone, address, city, state, position, institution, user_id } = req.body;
+      const { name, email, address, city, state, position, institution, user_id,sex,member,invitation,age } = req.body;
 
 
       console.log("req.body", req.body); // Log the request body for debugging
@@ -27,7 +27,7 @@ exports.createBillingAddress = async (req, res) => {
 
 exports.createManualBillingAddress = async (req, res) => {
     try {
-        const { user_id, name, address, state } = req.body;
+        const { user_id, name, address, state,position,instution,sex,member,invitation } = req.body;
 
         console.log("Billing address data:", req.body); // Log the request body for debugging
 
@@ -48,6 +48,11 @@ exports.createManualBillingAddress = async (req, res) => {
             name,
             address,
             state,
+            position,
+            instution,
+            sex,
+            member,
+            invitation
         });
 
         const savedAddress = await newAddress.save();

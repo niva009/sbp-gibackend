@@ -65,7 +65,7 @@ const OrderSchema = new Schema(
             type: String,
             required: false,
         },
-        regisstration_id: {
+        registration_id: {
             type: String,
             required: false,
         },
