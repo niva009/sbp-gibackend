@@ -19,7 +19,7 @@ const BillingAddressSchema = new Schema(
             required: true,
         },
         age:{
-            type: String,
+            type: Number,
             required:false,
         },
         city: {

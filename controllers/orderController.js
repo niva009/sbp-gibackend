@@ -9,6 +9,8 @@ const Event = require("../models/EventSchema.js"); // Assuming you have an Event
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const crypto = require("crypto");
+const orderSchema = require("../models/orderSchema.js");
+const { error } = require("console");
 
 
 const razorpay = new Razorpay({
@@ -265,7 +267,10 @@ const updateOrderStatus = async (req, res) => {
 
  const getAllOrders = async (req, res) => {
     try {
-        const orders = await Order.find().populate("user_id", "name email").populate("billingId").populate("user_id");
+        const orders = await Order.find().populate("user_id", "name email phone").populate("billingId").populate("user_id");
+
+
+        console.log("orders",orders);
 
         if (!orders || orders.length === 0) {
             return res.status(404).json({ success: false, message: "No orders found" });
@@ -302,7 +307,7 @@ const generateUniqueRegistrationId = async () => {
 
 const ManualCreateOrder = async (req, res) => {
     try {
-      const { user_id, billingId, total_price = 6000, currency = "INR", transaction_id } = req.body;
+      const { user_id, billingId, total_price = 6000, currency = "INR", transaction_id,age,position,instution,sex,member,invitation } = req.body;
   
       console.log("Incoming Request:", req.body);
   
@@ -342,11 +347,17 @@ const ManualCreateOrder = async (req, res) => {
         items,
         total_price,
         currency,
+        age,
+        position,
+        sex,
+        instution,
+        member,
+        invitation,
         payment_status: "paid",
         order_status: "confirmed",
         payment_method: "Manual",
         transaction_id,
-        regisstration_id: registration_id,
+        registration_id: registration_id,
       });
   
       const savedOrder = await newOrder.save();
@@ -366,7 +377,7 @@ const ManualCreateOrder = async (req, res) => {
       const emailHtml = `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
         <h2 style="color: #2c3e50;">Registration Confirmation – HPB & GI Cancer Summit 2025</h2>
-        <p>Dear  ${user.name},</p>
+        <p>Dear ${user?.email},</p>
         <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, an initiative by the <strong>Senadhipan Education Foundation</strong>. We are delighted to welcome you to this prestigious gathering of surgical professionals and experts.</p>
     
         <h3 style="color: #2c3e50;">📍 Event Details</h3>
@@ -376,7 +387,7 @@ const ManualCreateOrder = async (req, res) => {
     
         <p>Please retain this email as confirmation of your registration.</p>
     
-        <p><strong>Registration ID:</strong>${savedOrder.regisstration_id}</p>
+        <p><strong>Registration ID:</strong>${savedOrder?.registration_id}}</p>
     
         <h3 style="color: #2c3e50;">🔗 Quick Access</h3>
         <p>You may scan the attached QR code to view your program and updates anytime.</p>
@@ -422,7 +433,25 @@ const ManualCreateOrder = async (req, res) => {
     }
   };
 
-module.exports = { CreateOrder, getOrderById, getOrdersByUserId, updateOrderStatus, verifyPayment, getAllOrders,ManualCreateOrder };
+  const singleOrder = async(req,res) =>{
+
+    const id = req.params.id;
+
+    if(!id){
+      return res.status(400).json({ message:"order id not found", success:'false', error:"true"})
+    }
+
+    const orderInformaion = await orderSchema.findById(id).populate("user_id").populate("billingId")
+
+
+    if(!orderInformaion){
+      return res.status(401).json({message:"order information not found", success:'false', error:"true"});
+    }
+
+    return res.status(200).json({message:"order information", data:orderInformaion, success:"true", error:"false"})
+  }
+
+module.exports = { CreateOrder, getOrderById, getOrdersByUserId, updateOrderStatus, verifyPayment, getAllOrders,ManualCreateOrder,singleOrder };
 
 
 
