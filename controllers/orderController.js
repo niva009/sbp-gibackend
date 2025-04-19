@@ -148,7 +148,7 @@ const verifyPayment = async (req, res) => {
     <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
       <h2 style="color: #2c3e50;">Registration Confirmation - HPB & GI Cancer Summit 2025</h2>
       <p>Dear ${updatedOrder.user_id.name},</p>
-      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025 </strong>, organized by the <strong>Senadhipan Education Foundation</strong>. We are delighted to welcome you to this distinguished  gathering of surgical professionals and experts.</p>
+      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, organized by the <strong>Senadhipan Education Foundation </strong>. We are delighted to welcome you to this distinguished  gathering of surgical professionals and experts.</p>
   
       <h3 style="color: #2c3e50;">Event Details</h3>
       <p><strong>Event:</strong> HPB & GI Cancer Surgery Summit 2025</p>
@@ -378,7 +378,7 @@ const ManualCreateOrder = async (req, res) => {
     <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
       <h2 style="color: #2c3e50;">Registration Confirmation - HPB & GI Cancer Summit 2025</h2>
        <p>Dear ${user?.name},</p>
-      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, organized by the <strong>Senadhipan Education Foundation/strong>. We are delighted to welcome you to this distinguished  gathering of surgical professionals and experts.</p>
+      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, organized by the <strong>Senadhipan Education Foundation</strong>. We are delighted to welcome you to this distinguished  gathering of surgical professionals and experts.</p>
   
       <h3 style="color: #2c3e50;">Event Details</h3>
       <p><strong>Event:</strong> HPB & GI Cancer Surgery Summit 2025</p>
