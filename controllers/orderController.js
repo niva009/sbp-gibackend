@@ -146,30 +146,30 @@ const verifyPayment = async (req, res) => {
 
     const emailHtml = `
     <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-      <h2 style="color: #2c3e50;">Registration Confirmation – HPB & GI Cancer Summit 2025</h2>
+      <h2 style="color: #2c3e50;">Registration Confirmation - HPB & GI Cancer Summit 2025</h2>
       <p>Dear ${updatedOrder.user_id.name},</p>
-      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, an initiative by the <strong>Senadhipan Education Foundation</strong>. We are delighted to welcome you to this prestigious gathering of surgical professionals and experts.</p>
+      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, organized by the Senadhipan Education Foundation/strong>. We are delighted to welcome you to this distinguished  gathering of surgical professionals and experts.</p>
   
-      <h3 style="color: #2c3e50;">📍 Event Details</h3>
+      <h3 style="color: #2c3e50;">Event Details</h3>
       <p><strong>Event:</strong> HPB & GI Cancer Surgery Summit 2025</p>
       <p><strong>Venue:</strong> Uday Samudra Leisure Beach Hotel, Kovalam, Thiruvananthapuram</p>
-      <p><strong>Dates:</strong> 10th & 11th May 2025</p>
+      <p><strong>Dates:</strong> 10 & 11 May 2025</p>
   
-      <p>Please retain this email as confirmation of your registration.</p>
+      <p>Kindly  retain this email as confirmation of your registration.</p>
   
       <p><strong>Registration ID:</strong>${updatedOrder.registration_id}</p>
   
-      <h3 style="color: #2c3e50;">🔗 Quick Access</h3>
+      <h3 style="color: #2c3e50;">Contact Information</h3>
   
-      <p>If you have any questions or need further assistance, feel free to contact us at <strong>98475 72355</strong>.</p>
+      <p>For any inquiries or assistance, reach us at <strong>98475 72355</strong>.</p>
       
-      <p>For more details about the event, please visit our <a href="https://hpbgicancersurgerysummit2025.com" style="color: #2980b9;">official website</a>.</p>
+      <p>Additional details about the summit can be found on our <a href="https://hpbgicancersurgerysummit2025.com" style="color: #2980b9;">official website</a>.</p>
   
-      <p>We look forward to meeting you at the summit and sharing an enriching experience together!</p>
+      <p>We look forward to your participation and to sharing an engaging and insightful experience at the summit</p>
   
       <p style="margin-top: 30px;">
         Warm regards,<br>
-        <strong>Team – HPB & GI Cancer Surgery Summit 2025</strong><br>
+        <strong>Team - HPB & GI Cancer Surgery Summit 2025</strong><br>
         Senadhipan Education Foundation
       </p>
     </div>
@@ -373,36 +373,38 @@ const ManualCreateOrder = async (req, res) => {
           pass: process.env.EMAIL_PASS,
         },
       });
-      const emailHtml = `
-      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-        <h2 style="color: #2c3e50;">Registration Confirmation – HPB & GI Cancer Summit 2025</h2>
-        <p>Dear ${user?.email},</p>
-        <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, an initiative by the <strong>Senadhipan Education Foundation</strong>. We are delighted to welcome you to this prestigious gathering of surgical professionals and experts.</p>
-    
-        <h3 style="color: #2c3e50;">📍 Event Details</h3>
-        <p><strong>Event:</strong> HPB & GI Cancer Surgery Summit 2025</p>
-        <p><strong>Venue:</strong> Uday Samudra Leisure Beach Hotel, Kovalam, Thiruvananthapuram</p>
-        <p><strong>Dates:</strong> 10th & 11th May 2025</p>
-    
-        <p>Please retain this email as confirmation of your registration.</p>
-    
-        <p><strong>Registration ID:</strong>${savedOrder?.registration_id}</p>
-    
-        <h3 style="color: #2c3e50;">🔗 Quick Access</h3>
-    
-        <p>If you have any questions or need further assistance, feel free to contact us at <strong>98475 72355</strong>.</p>
-        
-        <p>For more details about the event, please visit our <a href="https://hpbgicancersurgerysummit2025.com" style="color: #2980b9;">official website</a>.</p>
-    
-        <p>We look forward to meeting you at the summit and sharing an enriching experience together!</p>
-    
-        <p style="margin-top: 30px;">
-          Warm regards,<br>
-          <strong>Team – HPB & GI Cancer Surgery Summit 2025</strong><br>
-          Senadhipan Education Foundation
-        </p>
-      </div>
-    `;
+
+    const emailHtml = `
+    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+      <h2 style="color: #2c3e50;">Registration Confirmation - HPB & GI Cancer Summit 2025</h2>
+       <p>Dear ${user?.name},</p>
+      <p>Thank you for registering for the <strong>HPB & GI Cancer Summit 2025</strong>, organized by the Senadhipan Education Foundation/strong>. We are delighted to welcome you to this distinguished  gathering of surgical professionals and experts.</p>
+  
+      <h3 style="color: #2c3e50;">Event Details</h3>
+      <p><strong>Event:</strong> HPB & GI Cancer Surgery Summit 2025</p>
+      <p><strong>Venue:</strong> Uday Samudra Leisure Beach Hotel, Kovalam, Thiruvananthapuram</p>
+      <p><strong>Dates:</strong> 10 & 11 May 2025</p>
+  
+      <p>Kindly  retain this email as confirmation of your registration.</p>
+  
+      <p><strong>Registration ID:</strong>${savedOrder?.registration_id}</p>
+  
+      <h3 style="color: #2c3e50;">Contact Information</h3>
+  
+      <p>For any inquiries or assistance, reach us at <strong>98475 72355</strong>.</p>
+      
+      <p>Additional details about the summit can be found on our <a href="https://hpbgicancersurgerysummit2025.com" style="color: #2980b9;">official website</a>.</p>
+  
+      <p>We look forward to your participation and to sharing an engaging and insightful experience at the summit</p>
+  
+      <p style="margin-top: 30px;">
+        Warm regards,<br>
+        <strong>Team - HPB & GI Cancer Surgery Summit 2025</strong><br>
+        Senadhipan Education Foundation
+      </p>
+    </div>
+  `;
+  
   
     await transporter.sendMail({
       from: `"HPB & GI Cancer Summit 2025" <${process.env.EMAIL_USER}>`,
