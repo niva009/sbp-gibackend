@@ -407,9 +407,9 @@ const ManualCreateOrder = async (req, res) => {
   
   
     await transporter.sendMail({
-      from: `"Registration Confirmation - HPB & GI Cancer Summit 2025" <${process.env.EMAIL_USER}>`,
+      from: `"HPB & GI Cancer Summit" <${process.env.EMAIL_USER}>`,
       to: user.email,
-      subject: "Order Confirmation with QR Code",
+      subject: "Registration Confirmation - HPB & GI Cancer Summit 2025",
       html: emailHtml,
       attachments: [
         {
