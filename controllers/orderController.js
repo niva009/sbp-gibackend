@@ -179,7 +179,7 @@ const verifyPayment = async (req, res) => {
     await transporter.sendMail({
       from: `"HPB & GI Cancer Summit" <${process.env.EMAIL_USER}>`,
       to: updatedOrder.user_id.email,
-      subject: "Registration Confirmed – HPB & GI Cancer Summit",
+      subject: "Registration Confirmation - HPB & GI Cancer Summit 2025",
       html: emailHtml,
       attachments: [
         {
@@ -407,7 +407,7 @@ const ManualCreateOrder = async (req, res) => {
   
   
     await transporter.sendMail({
-      from: `"HPB & GI Cancer Summit 2025" <${process.env.EMAIL_USER}>`,
+      from: `"Registration Confirmation - HPB & GI Cancer Summit 2025" <${process.env.EMAIL_USER}>`,
       to: user.email,
       subject: "Order Confirmation with QR Code",
       html: emailHtml,
