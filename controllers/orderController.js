@@ -157,10 +157,9 @@ const verifyPayment = async (req, res) => {
   
       <p>Please retain this email as confirmation of your registration.</p>
   
-      <p><strong>Registration ID:</strong>${updatedOrder.registration_id}}</p>
+      <p><strong>Registration ID:</strong>${updatedOrder.registration_id}</p>
   
       <h3 style="color: #2c3e50;">🔗 Quick Access</h3>
-      <p>You may scan the attached QR code to view your program and updates anytime.</p>
   
       <p>If you have any questions or need further assistance, feel free to contact us at <strong>98475 72355</strong>.</p>
       
@@ -387,10 +386,9 @@ const ManualCreateOrder = async (req, res) => {
     
         <p>Please retain this email as confirmation of your registration.</p>
     
-        <p><strong>Registration ID:</strong>${savedOrder?.registration_id}}</p>
+        <p><strong>Registration ID:</strong>${savedOrder?.registration_id}</p>
     
         <h3 style="color: #2c3e50;">🔗 Quick Access</h3>
-        <p>You may scan the attached QR code to view your program and updates anytime.</p>
     
         <p>If you have any questions or need further assistance, feel free to contact us at <strong>98475 72355</strong>.</p>
         
