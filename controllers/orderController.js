@@ -11,12 +11,16 @@ const ObjectId = mongoose.Types.ObjectId;
 const crypto = require("crypto");
 const orderSchema = require("../models/orderSchema.js");
 const { error } = require("console");
+const { Resend } = require('resend');
 
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_SECRET,
 });
+
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 const generateRegistrationId = () => {
@@ -365,6 +369,7 @@ const ManualCreateOrder = async (req, res) => {
       const orderUrl = `https://spbgi-admin.vercel.app/orders/${savedOrder._id}`;
       const qrBuffer = await QRCode.toBuffer(orderUrl);
   
+  
       // Send email with QR code attachment
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -406,19 +411,19 @@ const ManualCreateOrder = async (req, res) => {
   `;
   
   
-    await transporter.sendMail({
-      from: `"HPB & GI Cancer Summit" <${process.env.EMAIL_USER}>`,
-      to: user.email,
-      subject: "Registration Confirmation - HPB & GI Cancer Summit 2025",
-      html: emailHtml,
-      attachments: [
-        {
-          filename: 'qrcode.png',
-          content: qrBuffer,
-          cid: 'qrCodeImage',
-        },
-      ],
-    });
+  await resend.emails.send({
+    from: 'HPB Summit <noreply@hpbgicancersurgerysummit2025.com>', 
+    to: user.email,
+    subject: 'Registration Confirmation - HPB & GI Cancer Summit 2025',
+    html: emailHtml,
+    attachments: [
+      {
+        filename: 'qrcode.png',
+        content: qrBuffer,
+        type: 'image/png',
+      },
+    ],
+  });
     
   
       res.status(201).json({

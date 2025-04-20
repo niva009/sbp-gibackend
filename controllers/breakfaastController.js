@@ -1,4 +1,5 @@
 const Breakfast = require('../models/breakfastSchema');
+const order = require('../models/orderSchema');
 
 const addBreakfastRegistration = async (req, res) => {
   try {
@@ -36,6 +37,24 @@ const getAllBreakfastRegistrations = async (req, res) => {
     return res.status(500).json({ message: "Server error", error });
   }
 };
+
+
+
+// const MarkAttendance = async(req, res) =>{
+//   try {
+
+//     const { userId } = req.user;
+
+//     console.log("user id", userId);
+
+//     const data = new Attandace(req.body);
+
+
+
+
+
+//   }
+// }
 
 module.exports = {
   addBreakfastRegistration,
