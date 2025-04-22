@@ -20,19 +20,7 @@ const createUser = async (req, res) => {
     const rawPassword = crypto.randomBytes(5).toString("hex"); 
     const hashedPassword = await bcrypt.hash(rawPassword, 10);
 
-    const oldEmail = await userRegistration.findOne({ email });
-    const oldPhone = await userRegistration.findOne({ phone });
 
-
-    console.log("oldphone,emaail", oldEmail, oldPhone);
-
-    if (oldEmail) {
-      return res.status(400).json({ message: "Email already exists" });
-    }
-
-    if (oldPhone) {
-      return res.status(400).json({ message: "Phone number already exists" });
-    }
 
     const user = new userRegistration({
       name,
