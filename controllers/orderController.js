@@ -110,6 +110,8 @@ const verifyPayment = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
+    console.log("reqbodysig",req.body)
+
     // Signature verification (Very Important)
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_SECRET)
@@ -180,19 +182,19 @@ const verifyPayment = async (req, res) => {
   `;
   
 
-    await transporter.sendMail({
-      from: `"HPB & GI Cancer Summit" <${process.env.EMAIL_USER}>`,
-      to: updatedOrder.user_id.email,
-      subject: "Registration Confirmation - HPB & GI Cancer Summit 2025",
-      html: emailHtml,
-      attachments: [
-        {
-          filename: 'qrcode.png',
-          content: qrBuffer,
-          cid: 'qrCodeImage',
-        },
-      ],
-    });
+  await resend.emails.send({
+    from: 'HPB Summit <noreply@hpbgicancersurgerysummit2025.com>', 
+    to: updatedOrder.user_id.email,
+    subject: 'Registration Confirmation - HPB & GI Cancer Summit 2025',
+    html: emailHtml,
+    attachments: [
+      {
+        filename: 'qrcode.png',
+        content: qrBuffer,
+        type: 'image/png',
+      },
+    ],
+  });
 
     res.status(200).json({
       success: true,
