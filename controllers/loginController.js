@@ -7,14 +7,22 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const login = async (req, res) => {
     const { phone, email, password } = req.body;
 
+    console.log(req.body);
+
     try {
         if (!email && !phone) {
             return res.status(400).json({ message: "Email or phone is required", success: false, error: true });
         }
 
-        const user = await LoginSchema.findOne({ 
-            $or: [{ email }, { phone }] 
-        });
+        
+  const sanitizedEmail = email?.toLowerCase().trim();
+  const sanitizedPhone = phone?.trim();
+
+  const user = await LoginSchema.findOne({
+    $or: [{ email: sanitizedEmail }, { phone: sanitizedPhone }],
+  });
+
+        console.log("loged user list", user);
 
         if (!user) {
             return res.status(400).json({ message: "User does not exist", success: false, error: true });
@@ -22,8 +30,10 @@ const login = async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
+            console.log("matched", isMatch);
             return res.status(400).json({ message: "Incorrect password", success: false, error: true });
         }
+
 
         const token = jwt.sign(
             { userId: user.user_id, role: user.role },

@@ -1,11 +1,11 @@
 const Order = require("../models/orderSchema.js");
-const Cart = require("../models/orderSchema.js"); // Assuming you have a Cart model
+const Cart = require("../models/orderSchema.js"); 
 const Razorpay = require("razorpay");
 const QRCode = require("qrcode");
 const nodemailer = require("nodemailer");
-const User = require("../models/user_register.js"); // Assuming email is in User
-const Billing = require("../models/billingAddressSchema.js"); // Assuming you have a Billing model
-const Event = require("../models/EventSchema.js"); // Assuming you have an Event model
+const User = require("../models/user_register.js"); 
+const Billing = require("../models/billingAddressSchema.js"); 
+const Event = require("../models/EventSchema.js"); 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const crypto = require("crypto");
@@ -24,7 +24,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 const generateRegistrationId = () => {
-  const randomDigits = Math.floor(1000 + Math.random() * 9000); // Ensures a 4-digit number
+  const randomDigits = Math.floor(1000 + Math.random() * 9000);
   return `HPB-${randomDigits}`;
 };
 

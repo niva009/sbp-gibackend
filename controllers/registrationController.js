@@ -59,6 +59,65 @@ const createUser = async (req, res) => {
   }
 };
 
+const manualCreaateUser = async (req, res) => {
+  try {
+    const { name, email, phone, password } = req.body;
+
+    if (!name || !email || !phone || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const sanitizedEmail = email?.toLowerCase().trim();
+    const sanitizedPhone = phone?.trim();
+
+    const existingUser = await loginSchema.findOne({
+      $or: [{ email: sanitizedEmail }, { phone: sanitizedPhone }],
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new userRegistration({
+      name,
+      email: sanitizedEmail,
+      phone: sanitizedPhone,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    const newLogin = new loginSchema({
+      email: sanitizedEmail,
+      phone: sanitizedPhone,
+      password: hashedPassword,
+      user_id: user._id,
+    });
+
+    await newLogin.save();
+
+    res.status(201).json({
+      message: "User registered successfully",
+      data: {
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+
+
 
 const registerusers = async (req, res) => {
 
@@ -76,7 +135,7 @@ const registerusers = async (req, res) => {
 }
 
 
-module.exports = {createUser,registerusers}
+module.exports = {createUser,registerusers,manualCreaateUser}
 
 
     

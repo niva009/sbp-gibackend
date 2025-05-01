@@ -12,10 +12,11 @@ const authenticateToken = (req, res, next) => {
     try {
         // Verify the token
         const decoded = jwt.verify(token, JWT_SECRET);
+        console.log("decoded userid",decoded );
         req.user = decoded; // Attach decoded token data to the request object
         next();
     } catch (error) {
-        res.status(403).json({ message: 'Invalid or expired token' });
+        res.status(403).json({ message: 'Invalid or expired token' , error});
     }
 };
 

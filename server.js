@@ -8,6 +8,7 @@
   const orderRouter = require('./Router/orderRouter');
   const EventTimeRouter = require('./Router/evnttimeRouter');
   const BreakFastRouter = require('./Router/breakfastRouter')
+  const AttandanceRouter = require('./Router/attandanceRouter');
   const cors = require("cors");
   const dbConnection = require('./config/config');
   const dotenv = require("dotenv");
@@ -50,6 +51,7 @@
   app.use('/api', orderRouter);
   app.use('/api', EventTimeRouter);
   app.use('/api',BreakFastRouter);
+  app.use('/api',AttandanceRouter);
 
 
 

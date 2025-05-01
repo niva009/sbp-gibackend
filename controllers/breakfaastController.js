@@ -7,7 +7,7 @@ const addBreakfastRegistration = async (req, res) => {
 
     console.log("reqbody breakfast", req.body)
 
-    if (!name || !email || !phonenumber || !registrationId || !legend) {
+    if (!name || !email || !phonenumber || !legend) {
       return res.status(400).json({ message: "All fields are required." });
     }
 

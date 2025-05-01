@@ -16,7 +16,7 @@ const BreakfastSchema = new Schema({
   },
   registrationId: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   legend: {
