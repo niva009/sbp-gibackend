@@ -94,6 +94,7 @@ const manualCreaateUser = async (req, res) => {
       phone: sanitizedPhone,
       password: hashedPassword,
       user_id: user._id,
+      role: "2",
     });
 
     await newLogin.save();
